@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+   <!-- Cutomer model -->
+   <bean id="apiCustomer" class = "api.Customer"></bean>
+   <bean id="modelCustomer" class = "model.customers.Customers"></bean>
+   <bean id="contact" class = "model.customers.Contact"></bean>
+   <bean id="address" class = "model.customers.Address"></bean>
+   <bean id="deliveryAddress" class = "model.customers.DeliveryAddress"></bean>
+   
+   <!-- Item model -->
+   <bean id="itemApi" class = "api.ItemApi"></bean>
+   <bean id="modelItem" class = "model.item.BaseItem"></bean>
+   <bean id="bookkeeping" class = "model.item.Bookkeeping"></bean>
+   
+   
+</beans>
