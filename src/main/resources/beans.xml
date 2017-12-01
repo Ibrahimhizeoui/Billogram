@@ -16,5 +16,18 @@
    <bean id="modelItem" class = "model.item.BaseItem"></bean>
    <bean id="bookkeeping" class = "model.item.Bookkeeping"></bean>
    
+   <!-- Invoice model -->
+   <bean id="invoiceApi" class = "api.InvoiceApi"></bean>
+   <bean id="invoiceModel" class = "model.invoices.InvoiceModel"></bean>
+   <bean id="item" class = "model.invoices.Item"></bean>
+   <bean id="info" class = "model.invoices.BillogramAdditionalInfo"></bean>
+   <bean id="regional_sweden" class = "model.invoices.BillogramSwedishRegionalData"></bean>
+   <bean id="events" class = "model.invoices.BillogramEvents"></bean>
+   <bean id="automatic_reminders_settings" class = "model.invoices.BillogramAutomaticReminder"></bean>
+   <bean id="callbacks" class = "model.invoices.BillogramCallbacks"></bean>
+   <bean id="automatic_collection" class = "model.invoices.BillogramAutomaticCollection"></bean>
+   <bean id="detailed_sums" class = "model.invoices.DetailedSums"></bean>
+   
+   
    
 </beans>

@@ -3,36 +3,37 @@ package model.invoices;
 import java.sql.Timestamp;
 
 import api.Customer;
+import model.customers.Customers;
 
-public class Invoice {
+public class InvoiceModel {
 
 	private String id;
 	private int invoice_no;
 	private String ocr_number;
-	private Customer customer;
+	private Customers customer;
 	private Item[] items;
-	private Timestamp invoice_date;
+	private String invoice_date;
 	private Timestamp due_date;
 	private Timestamp due_days;
 	private int invoice_fee;
-	private int invoice_fee_vat;
-	private int reminder_fee;
-	private int interest_rate;
-	private int interest_fee;
+	private String invoice_fee_vat;
+	private String reminder_fee;
+	private String interest_rate;
+	private String interest_fee;
 	private String currency;
 	private BillogramAdditionalInfo info;
-	private BillogramSwedishRegionalData billogramSwedishRegionalData;
+	private BillogramSwedishRegionalData regional_sweden;
 	private String delivery_method;
 	private String state;
 	private String url;
 	private String[] flags;
 	private BillogramEvents[] events ;
-	private int remaining_sum;
-	private int total_sum;
-	private int rounding_value;
+	private String remaining_sum;
+	private String total_sum;
+	private String rounding_value;
 	private boolean automatic_reminders;
 	private BillogramAutomaticReminder[] automatic_reminders_settings;
-	private int reminder_count;
+	private String reminder_count;
 	private Timestamp created_at;
 	private Timestamp updated_at;
 	private Timestamp attested_at;
@@ -40,9 +41,9 @@ public class Invoice {
 	private String attachment;
 	private BillogramAutomaticCollection automatic_collection;
 	private DetailedSums detailed_sums;
-	public Invoice() {
-		super();
-	}
+	
+	public InvoiceModel() {}
+	
 	public String getId() {
 		return id;
 	}
@@ -61,24 +62,32 @@ public class Invoice {
 	public void setOcr_number(String ocr_number) {
 		this.ocr_number = ocr_number;
 	}
-	public Customer getCustomer() {
+	
+	
+	
+	public Customers getCustomer() {
 		return customer;
 	}
-	public void setCustomer(Customer customer) {
+
+	public void setCustomer(Customers customer) {
 		this.customer = customer;
 	}
+
 	public Item[] getItems() {
 		return items;
 	}
 	public void setItems(Item[] items) {
 		this.items = items;
 	}
-	public Timestamp getInvoice_date() {
+	
+	public String getInvoice_date() {
 		return invoice_date;
 	}
-	public void setInvoice_date(Timestamp invoice_date) {
+
+	public void setInvoice_date(String invoice_date) {
 		this.invoice_date = invoice_date;
 	}
+
 	public Timestamp getDue_date() {
 		return due_date;
 	}
@@ -97,28 +106,28 @@ public class Invoice {
 	public void setInvoice_fee(int invoice_fee) {
 		this.invoice_fee = invoice_fee;
 	}
-	public int getInvoice_fee_vat() {
+	public String getInvoice_fee_vat() {
 		return invoice_fee_vat;
 	}
-	public void setInvoice_fee_vat(int invoice_fee_vat) {
+	public void setInvoice_fee_vat(String invoice_fee_vat) {
 		this.invoice_fee_vat = invoice_fee_vat;
 	}
-	public int getReminder_fee() {
+	public String getReminder_fee() {
 		return reminder_fee;
 	}
-	public void setReminder_fee(int reminder_fee) {
+	public void setReminder_fee(String reminder_fee) {
 		this.reminder_fee = reminder_fee;
 	}
-	public int getInterest_rate() {
+	public String getInterest_rate() {
 		return interest_rate;
 	}
-	public void setInterest_rate(int interest_rate) {
+	public void setInterest_rate(String interest_rate) {
 		this.interest_rate = interest_rate;
 	}
-	public int getInterest_fee() {
+	public String getInterest_fee() {
 		return interest_fee;
 	}
-	public void setInterest_fee(int interest_fee) {
+	public void setInterest_fee(String interest_fee) {
 		this.interest_fee = interest_fee;
 	}
 	public String getCurrency() {
@@ -133,12 +142,15 @@ public class Invoice {
 	public void setInfo(BillogramAdditionalInfo info) {
 		this.info = info;
 	}
-	public BillogramSwedishRegionalData getBillogramSwedishRegionalData() {
-		return billogramSwedishRegionalData;
+	
+	public BillogramSwedishRegionalData getRegional_sweden() {
+		return regional_sweden;
 	}
-	public void setBillogramSwedishRegionalData(BillogramSwedishRegionalData billogramSwedishRegionalData) {
-		this.billogramSwedishRegionalData = billogramSwedishRegionalData;
+
+	public void setRegional_sweden(BillogramSwedishRegionalData regional_sweden) {
+		this.regional_sweden = regional_sweden;
 	}
+
 	public String getDelivery_method() {
 		return delivery_method;
 	}
@@ -169,22 +181,22 @@ public class Invoice {
 	public void setEvents(BillogramEvents[] events) {
 		this.events = events;
 	}
-	public int getRemaining_sum() {
+	public String getRemaining_sum() {
 		return remaining_sum;
 	}
-	public void setRemaining_sum(int remaining_sum) {
+	public void setRemaining_sum(String remaining_sum) {
 		this.remaining_sum = remaining_sum;
 	}
-	public int getTotal_sum() {
+	public String getTotal_sum() {
 		return total_sum;
 	}
-	public void setTotal_sum(int total_sum) {
+	public void setTotal_sum(String total_sum) {
 		this.total_sum = total_sum;
 	}
-	public int getRounding_value() {
+	public String getRounding_value() {
 		return rounding_value;
 	}
-	public void setRounding_value(int rounding_value) {
+	public void setRounding_value(String rounding_value) {
 		this.rounding_value = rounding_value;
 	}
 	public boolean isAutomatic_reminders() {
@@ -199,10 +211,10 @@ public class Invoice {
 	public void setAutomatic_reminders_settings(BillogramAutomaticReminder[] automatic_reminders_settings) {
 		this.automatic_reminders_settings = automatic_reminders_settings;
 	}
-	public int getReminder_count() {
+	public String getReminder_count() {
 		return reminder_count;
 	}
-	public void setReminder_count(int reminder_count) {
+	public void setReminder_count(String reminder_count) {
 		this.reminder_count = reminder_count;
 	}
 	public Timestamp getCreated_at() {

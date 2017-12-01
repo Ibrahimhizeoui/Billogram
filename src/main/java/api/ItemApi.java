@@ -62,9 +62,9 @@ public class ItemApi extends HttpApi implements HandelResponse<BaseItem>{
 		List<BaseItem> listOfBaseItems = new ArrayList<BaseItem>();
 		if(response.getStatusLine().getStatusCode()==200){
 			String bodyAsString = EntityUtils.toString(response.getEntity());
-			//get data from boby
+			//Get data from boby
 			JSONObject jsonObject = new JSONObject(bodyAsString.toString());
-			//Convert json to customers[]
+			//Convert json to items[]
 			Gson gson = new Gson();
 			baseItems = gson.fromJson(jsonObject.get("data").toString(), BaseItem[].class);
 			for (BaseItem item :baseItems){

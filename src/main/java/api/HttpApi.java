@@ -55,8 +55,7 @@ public class HttpApi {
 	protected CloseableHttpResponse httpPost(URIBuilder builder, Object obj) throws URISyntaxException, ClientProtocolException, IOException{
 		Gson gson = new Gson();
 	    String modelAsString = gson.toJson(obj);
-	    System.out.println(modelAsString);
-		CloseableHttpClient httpclient = this.auth();
+	    CloseableHttpClient httpclient = this.auth();
 		URI uri = builder.build();
 		HttpPost httpPost = new HttpPost(uri);
 		StringEntity entity = new StringEntity(modelAsString, HTTP.UTF_8);
