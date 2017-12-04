@@ -3,6 +3,7 @@ package api;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.ParseException;
@@ -13,6 +14,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import exceptions.AccessDeniedException;
 import exceptions.InvalidParameterException;
@@ -22,41 +24,41 @@ import model.customers.Customers;
 
 public class Customer extends HttpApi{
 
-	public List<Customers> search() throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
+	public CloseableHttpResponse search() throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
 		URIBuilder queryParameters = new URIBuilder();
 		queryParameters.setScheme("https").setHost(endpoint).setPath("/customer")
 		    .setParameter("page", "1")
 		    .setParameter("page_size", "100");
 		CloseableHttpResponse response = this.httpGet(queryParameters);
 		
-		return this.handelResponseForArrayObject(response);
+		return response;
 	}
 	
-	public Customers find(int id) throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
+	public CloseableHttpResponse find(int id) throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
 		URIBuilder queryParameters = new URIBuilder();
 		queryParameters.setScheme("https").setHost(endpoint).setPath("/customer/"+id)
 		    .setParameter("page", "1")
 		    .setParameter("page_size", "100");
 		CloseableHttpResponse response = this.httpGet(queryParameters);
 		
-		return this.handelResponseForOneObect(response);
+		return response;
 	}
 	
-	public Customers post(Customers customer) throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
+	public CloseableHttpResponse post(Customers customer) throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
 		URIBuilder queryParameters = new URIBuilder();
 		queryParameters.setScheme("https").setHost(endpoint).setPath("/customer");
 		CloseableHttpResponse response = this.httpPost(queryParameters, customer);
 		
-		return this.handelResponseForOneObect(response);
+		return response;
 	}
 	
-	public Customers put(int id, Customers customer) throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
+	public CloseableHttpResponse put(String id, Customers customer) throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
 		URIBuilder queryParameters = new URIBuilder();
 		queryParameters.setScheme("https").setHost(endpoint).setPath("/customer/"+id);
 		System.out.println(queryParameters);
 		CloseableHttpResponse response = this.httpPut(queryParameters, customer);
 		
-		return this.handelResponseForOneObect(response);
+		return response;
 	}
 	
 	protected Customers handelResponseForOneObect(CloseableHttpResponse response) throws ParseException, IOException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
@@ -69,7 +71,8 @@ public class Customer extends HttpApi{
 			//get data from boby
 			JSONObject jsonObject = new JSONObject(bodyAsString.toString());
 			//Convert json to customers
-			Gson gson = new Gson();
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			Gson gson = gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer()).create();
 			customer = gson.fromJson(jsonObject.get("data").toString(), Customers.class);
 		
 		return customer;	
@@ -83,7 +86,8 @@ public class Customer extends HttpApi{
 			//get data from boby
 			JSONObject jsonObject = new JSONObject(bodyAsString.toString());
 			//Convert json to customers[]
-			Gson gson = new Gson();
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			Gson gson = gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer()).create();
 			customers = gson.fromJson(jsonObject.get("data").toString(), Customers[].class);
 			for (Customers customer :customers){
 				listOfCostomers.add(customer);

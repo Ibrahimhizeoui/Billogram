@@ -1,6 +1,7 @@
 package model.customers;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Customers {
 	private int customer_no;
@@ -11,8 +12,8 @@ public class Customers {
 	private Contact contact;
 	private Address address;
 	private DeliveryAddress delivery_address;
-	private Timestamp createdAt;
-	private Timestamp updatedAt;
+	private Date created_at;
+	private Date updated_at;
 	private String company_type;
 	public Customers() {
 		super();
@@ -65,17 +66,20 @@ public class Customers {
 	public void setDelivery_address(DeliveryAddress delivery_address) {
 		this.delivery_address = delivery_address;
 	}
-	public Timestamp getCreatedAt() {
-		return createdAt;
+	
+	
+	
+	public Date getCreated_at() {
+		return created_at;
 	}
-	public void setCreatedAt(Timestamp createdAt) {
-		this.createdAt = createdAt;
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
+	public Date getUpdated_at() {
+		return updated_at;
 	}
-	public void setUpdatedAt(Timestamp updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 	public String getCompany_type() {
 		return company_type;
@@ -83,4 +87,13 @@ public class Customers {
 	public void setCompany_type(String company_type) {
 		this.company_type = company_type;
 	}
+	@Override
+	public String toString() {
+		return "Customers [customer_no=" + customer_no + ", name=" + name + ", notes=" + notes + ", org_no=" + org_no
+				+ ", vat_no=" + vat_no + ", contact=" + contact + ", address=" + address + ", delivery_address="
+				+ delivery_address + ", createdAt=" + created_at + ", updatedAt=" + updated_at + ", company_type="
+				+ company_type + "]";
+	}
+	
+	
 }

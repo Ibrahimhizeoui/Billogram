@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.hamcrest.core.IsInstanceOf;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,13 +30,13 @@ public class CustomersTest extends TestCase {
 	List<Customers> arrayModelCustomer =  null;
 	
 	public void testSearchAllRequst() throws ClientProtocolException, ParseException, URISyntaxException, IOException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
-		arrayModelCustomer = apicustomer.search();
-		assertNotNull(arrayModelCustomer);
+		CloseableHttpResponse response = apicustomer.search();
+		assertEquals(response.getStatusLine().getStatusCode(),200);
 	}
 	
 	public void testFind() throws ClientProtocolException, ParseException, URISyntaxException, IOException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException {
-	    	modelCustomer = apicustomer.find(1);
-		    assertNotNull(modelCustomer);
+			CloseableHttpResponse response = apicustomer.find(1);
+	    	assertEquals(response.getStatusLine().getStatusCode(),200);
 	   }
 	   
 	   public void testPostRequst() throws ClientProtocolException, ParseException, URISyntaxException, IOException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
@@ -65,12 +67,11 @@ public class CustomersTest extends TestCase {
 			deliveryAddress.setCountry("SE");
 			model.setDelivery_address(deliveryAddress);
 			model.setCompany_type("individual");
-			modelCustomer = apicustomer.post(model);
-			assertNotNull(modelCustomer);
+			CloseableHttpResponse response = apicustomer.post(model);
+			assertEquals(response.getStatusLine().getStatusCode(),200);
 	   }
 	   public void testPutRequst() throws ClientProtocolException, ParseException, URISyntaxException, IOException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
-		    String s ="Customers [name=Zlatan, notes=xx, org_no=, vat_no=SE556677889901, contact=Contact [name=ib922, email=ib92g@gmail.com, phone=0712223344], address=Address [careof=khaled, use_careof_as_attention=false, street_address=Flygarvägen 189B, zipcode=17569, city=Järfälla, country=SE], delivery_address=DeliveryAddress [careof=khaled, streetAddress=Flygarvägen 189B, zipcode=17569, city=Järfälla, country=SE], createdAt=null, updatedAt=null, company_type=individual]";
-		    Customers model = apicustomer.find(1);
+		    Customers model = apicustomer.handelResponseForOneObect(apicustomer.find(1));
 		    model.setName("Zlatan");
 			model.setNotes("xx");
 			model.setOrg_no(null);
@@ -96,8 +97,11 @@ public class CustomersTest extends TestCase {
 			deliveryAddress.setCity("Järfälla");
 			deliveryAddress.setCountry("SE");
 			model.setDelivery_address(deliveryAddress);
+			//READ_ONLY_PARAMETER : updated_at & created_at
+			model.setCreated_at(null);
+			model.setUpdated_at(null);
 			model.setCompany_type("individual");
-			modelCustomer = apicustomer.put(1,model);
-			assertNotNull(modelCustomer);
+			CloseableHttpResponse response = apicustomer.put("1",model);
+			assertEquals(response.getStatusLine().getStatusCode(),200);
 	   }
 }

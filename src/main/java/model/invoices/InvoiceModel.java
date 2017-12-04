@@ -1,6 +1,9 @@
 package model.invoices;
 
-import java.sql.Timestamp;
+
+
+import java.util.Arrays;
+import java.util.Date;
 
 import api.Customer;
 import model.customers.Customers;
@@ -13,8 +16,8 @@ public class InvoiceModel {
 	private Customers customer;
 	private Item[] items;
 	private String invoice_date;
-	private Timestamp due_date;
-	private Timestamp due_days;
+	private String due_date;
+	private String due_days;
 	private int invoice_fee;
 	private String invoice_fee_vat;
 	private String reminder_fee;
@@ -34,9 +37,9 @@ public class InvoiceModel {
 	private boolean automatic_reminders;
 	private BillogramAutomaticReminder[] automatic_reminders_settings;
 	private String reminder_count;
-	private Timestamp created_at;
-	private Timestamp updated_at;
-	private Timestamp attested_at;
+	private Date created_at;
+	private Date updated_at;
+	private Date attested_at;
 	private BillogramCallbacks callbacks;
 	private String attachment;
 	private BillogramAutomaticCollection automatic_collection;
@@ -88,16 +91,16 @@ public class InvoiceModel {
 		this.invoice_date = invoice_date;
 	}
 
-	public Timestamp getDue_date() {
+	public String getDue_date() {
 		return due_date;
 	}
-	public void setDue_date(Timestamp due_date) {
+	public void setDue_date(String due_date) {
 		this.due_date = due_date;
 	}
-	public Timestamp getDue_days() {
+	public String getDue_days() {
 		return due_days;
 	}
-	public void setDue_days(Timestamp due_days) {
+	public void setDue_days(String due_days) {
 		this.due_days = due_days;
 	}
 	public int getInvoice_fee() {
@@ -217,22 +220,22 @@ public class InvoiceModel {
 	public void setReminder_count(String reminder_count) {
 		this.reminder_count = reminder_count;
 	}
-	public Timestamp getCreated_at() {
+	public Date getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(Timestamp created_at) {
+	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	public Timestamp getUpdated_at() {
+	public Date getUpdated_at() {
 		return updated_at;
 	}
-	public void setUpdated_at(Timestamp updated_at) {
+	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-	public Timestamp getAttested_at() {
+	public Date getAttested_at() {
 		return attested_at;
 	}
-	public void setAttested_at(Timestamp attested_at) {
+	public void setAttested_at(Date attested_at) {
 		this.attested_at = attested_at;
 	}
 	public BillogramCallbacks getCallbacks() {
@@ -259,5 +262,14 @@ public class InvoiceModel {
 	public void setDetailed_sums(DetailedSums detailed_sums) {
 		this.detailed_sums = detailed_sums;
 	}
+
+	@Override
+	public String toString() {
+		return "InvoiceModel [id=" + id + ", invoice_no=" + invoice_no + ", ocr_number=" + ocr_number + ", customer="
+				+ customer.toString() + ", items=" + Arrays.toString(items) + ", invoice_date=" + invoice_date + ", due_date="
+				+ due_date + ", due_days=" + due_days + ", url=" + url + ", created_at=" + created_at + ", updated_at="
+				+ updated_at + ", attested_at=" + attested_at + "]";
+	}
+	
 	
 }

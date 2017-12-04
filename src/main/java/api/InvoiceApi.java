@@ -2,11 +2,12 @@ package api;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Date;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -70,7 +71,8 @@ public class InvoiceApi extends HttpApi implements HandelResponse<InvoiceModel>{
 		//Convert json to invoiceModels[]
 	
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		Gson gson = gsonBuilder.registerTypeAdapter(Timestamp.class, new DateDeserializer()).create();
+		Gson gson = gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer()).create();
+		
 		invoiceModels = gson.fromJson(jsonObject.get("data").toString(), InvoiceModel[].class);
 		for (InvoiceModel invoiceModel :invoiceModels){
 			listOfBaseItems.add(invoiceModel);
@@ -80,8 +82,20 @@ public class InvoiceApi extends HttpApi implements HandelResponse<InvoiceModel>{
 
 	public InvoiceModel handelResponseForOneObject(CloseableHttpResponse response) throws ParseException, IOException,
 			InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException {
-		// TODO Auto-generated method stub
-		return null;
+		if(! (response.getStatusLine().getStatusCode()==200)){
+			this.handelErrors(response);
+			return null;
+		}
+		InvoiceModel invoiceModel = null;
+		String bodyAsString = EntityUtils.toString(response.getEntity());
+		//Get data from boby
+		JSONObject jsonObject = new JSONObject(bodyAsString);
+		//Convert json to invoiceModels[]
+	
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer()).create();
+		invoiceModel = gson.fromJson(jsonObject.get("data").toString(), InvoiceModel.class);
+		return invoiceModel;
 	}
 	
 	

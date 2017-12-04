@@ -31,7 +31,7 @@ public class InvoiceApiTest extends TestCase {
 	BaseItem modelItem = (BaseItem)context.getBean("modelItem");
 	Item item1  = (Item)context.getBean("item");
 	Item item2  = (Item)context.getBean("item");
-	public void testSearchAllRequst() throws ClientProtocolException, URISyntaxException, IOException{
+	/*public void testSearchAllRequst() throws ClientProtocolException, URISyntaxException, IOException{
 		CloseableHttpResponse response = invoiceApi.search();
 		System.out.println(EntityUtils.toString(response.getEntity(),"UTF-8"));
 		
@@ -82,6 +82,14 @@ public class InvoiceApiTest extends TestCase {
 		for(InvoiceModel invoice:listOfBaseItems){
 			System.out.println(invoice);
 		}
+		
+	}*/
+	
+	public void testHandelResponseForOneObject() throws ClientProtocolException, URISyntaxException, IOException, ParseException, InvalidParameterException, MissingAuthException, AccessDeniedException, NotFoundOrAvailableException{
+		CloseableHttpResponse response = invoiceApi.find("yxY3yVJ");
+		InvoiceModel invoice = invoiceApi.handelResponseForOneObject(response);
+		System.out.println(invoice);
+		
 		
 	}
 }
